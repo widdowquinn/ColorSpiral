@@ -1,0 +1,12 @@
+colorspiral README
+
+colorspiral is code to define a spiral in HSV colour space, and select 
+colours along that spiral. The idea is that such colours will be - for
+small numbers of colours - particularly distinguishable from each other.
+Where large numbers of colours are chosen, it can help to use a 
+brightness jitter.
+
+This code is intended ultimately to be contributed to Biopython
+(http://biopython.org) as Bio.Graphics.ColorSpiral, but is 
+being provided as early release to accompany a blog post at
+http://armchairbiology.blogspot.com/
