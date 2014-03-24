@@ -45,7 +45,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 
 # standard library
-import cmath       # polar <-> Cartesian conversions
 import colorsys    # colour format conversions
 from math import log, exp, floor, pi
 import random      # for jitter values
@@ -98,10 +97,15 @@ class ColorSpiral(object):
                       and V will be maintained in [0,1].
         """
         # Initialise attributes
+        self._a = None
         self.a = a
+        self._b = None
         self.b = b
+        self._v_init = None
         self.v_init = v_init
+        self._v_final = None
         self.v_final = v_final
+        self._jitter = None
         self.jitter = jitter
 
     def get_colors(self, k, offset=0.1):
@@ -147,41 +151,55 @@ class ColorSpiral(object):
             # we can use this value directly as s in HSV
             yield colorsys.hsv_to_rgb(h, r, max(0, min(v, 1)))
 
-    def get_a(self):
+    @property
+    def a(self):
+        """ Controls initial direction of spiral """
         return self._a
 
-    def set_a(self, value):
+    @a.setter
+    def a(self, value):
+        """ Setter for a attribute """
         self._a = max(0, value)
 
-    def get_b(self):
+    @property
+    def b(self):
+        """ Controls rate of revolution of spiral """
         return self._b
 
-    def set_b(self, value):
+    @b.setter
+    def b(self, value):
+        """ Setter for b attribute """
         self._b = max(0, value)
 
-    def get_v_init(self):
+    @property
+    def v_init(self):
+        """ Initial spiral brightness """
         return self._v_init
 
-    def set_v_init(self, value):
+    @v_init.setter
+    def v_init(self, value):
+        """ Setter for v_init attribute """
         self._v_init = max(0, min(1, value))
 
-    def get_v_final(self):
+    @property
+    def v_final(self):
+        """ Final spiral brightness """
         return self._v_final
 
-    def set_v_final(self, value):
+    @v_final.setter
+    def v_final(self, value):
+        """ Setter for v_final attribute """
         self._v_final = max(0, min(1, value))
 
-    def get_jitter(self):
+    @property
+    def jitter(self):
+        """ Level of brightness jitter """
         return self._jitter
 
-    def set_jitter(self, value):
+    @jitter.setter
+    def jitter(self, value):
+        """ Setter for jitter attribute """
         self._jitter = max(0, min(1, value))
-
-    a = property(get_a, set_a)
-    b = property(get_b, set_b)
-    v_init = property(get_v_init, set_v_init)
-    v_final = property(get_jitter, set_v_final)
-    jitter = property(get_jitter, set_jitter)
 
 
 # Convenience functions for those who don't want to bother with a
@@ -195,23 +213,23 @@ def get_colors(k, **kwargs):
 
        o **kwargs - pass-through arguments to the ColorSpiral object
     """
-    cs = ColorSpiral(**kwargs)
-    return cs.get_colors(k)
+    cspiral = ColorSpiral(**kwargs)
+    return cspiral.get_colors(k)
 
 
-def get_color_dict(l, **kwargs):
+def get_color_dict(iterable, **kwargs):
     """Returns a dictionary, keyed by the members of iterable l, with a
        colour assigned to each member.
 
        Arguments:
 
-       o l - an iterable representing classes to be coloured
+       o iterable - an iterable representing classes to be coloured
 
        o **kwargs - pass-through arguments to the ColorSpiral object
     """
-    cs = ColorSpiral(**kwargs)
-    colors = cs.get_colors(len(l))
-    dict = {}
-    for item in l:
-        dict[item] = colors.next()
-    return dict
+    cspiral = ColorSpiral(**kwargs)
+    colors = cspiral.get_colors(len(iterable))
+    cdict = {}
+    for item in iterable:
+        cdict[item] = colors.next()
+    return cdict

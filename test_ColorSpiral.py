@@ -47,13 +47,6 @@ try:
 except ImportError:
     raise MissingPythonDependencyError(
         "Install reportlab if you want to use Bio.Graphics.")
-try:
-    from reportlab.graphics import renderPM
-except ImportError:
-    #This is an optional part of ReportLab, so may not be installed.
-    #We'll raise a missing dependency error if rendering to a
-    #bitmap format is attempted.
-    renderPM = None
 
 # Biopython Bio.Graphics.ColorSpiral
 from ColorSpiral import ColorSpiral, get_colors, get_color_dict
