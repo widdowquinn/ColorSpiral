@@ -1,5 +1,15 @@
 #README.md - ColorSpiral.py
 
+#NOTE: This repository is now FROZEN and will not receive further development. For further details, see below.
+
+The `ColorSpiral` module was incorporated into Biopython as of its [1.61 release](https://github.com/biopython/biopython/releases). Further development of the code will now continue there. Please make all pull requests against the latest version of the code in the Biopython GitHub repository, at [https://github.com/biopython/biopython](https://github.com/biopython/biopython)
+
+## Links
+
+* [Biopython home](http://biopython.org/wiki/Main_Page)
+* [Biopython on pypi](https://pypi.python.org/pypi/biopython)
+* [Biopython on GitHub](https://github.com/biopython/biopython)
+
 ## Overview
 
 `ColorSpiral.py` is code to define a spiral in HSV colour space, and select 
